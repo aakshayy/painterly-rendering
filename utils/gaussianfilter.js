@@ -29,8 +29,8 @@ GaussianFilter.prototype.applyFilter = function(input, output) {
     for (var i = kby2; i < (input.width - kby2); i++) {
         for (var j = kby2; j < (input.height - kby2); j++) {
             var sum1 = 0.0; var sum2 = 0.0; var sum3 = 0.0;
-            for (var x = -kby2; x < kby2; x++) {
-                for (var y = -kby2; y < kby2; y++) {
+            for (var x = -kby2; x <= kby2; x++) {
+                for (var y = -kby2; y <= kby2; y++) {
                     sum1 += input.data[i + x][j + y][0] * this.kernel[x + kby2][y + kby2];
                     sum2 += input.data[i + x][j + y][1] * this.kernel[x + kby2][y + kby2];
                     sum3 += input.data[i + x][j + y][2] * this.kernel[x + kby2][y + kby2];

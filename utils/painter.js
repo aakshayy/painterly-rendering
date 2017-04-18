@@ -8,9 +8,15 @@ function Painter() {
 
 Painter.prototype.paint = function(inputImage) {
     this.referenceImage = new ImageClass(inputImage.width, inputImage.height);
-    this.gaussianFilter = new GaussianFilter();
-    this.gaussianFilter.applyFilter(inputImage, this.referenceImage);
+    this.gradientImage = new ImageClass(inputImage.width, inputImage.height);
     this.canvas = new ImageClass(inputImage.width, inputImage.height);
+
+    this.gaussianFilter = new GaussianFilter();
+    this.sobelFilter = new SobelFilter();
+    
+    this.gaussianFilter.applyFilter(inputImage, this.referenceImage);
+    this.sobelFilter.applyFilter(this.referenceImage, this.gradientImage);
+
     for(var i = 0; i < this.brushes.length; i++) {
         this.paintLayer(this.brushes[i]);
     }
@@ -44,6 +50,7 @@ Painter.prototype.paintLayer = function(brush) {
         }
     }
     console.log("Stroke count: ", strokes.length);
+    //TODO: shuffle here before actually drawing strokes.
     for(var i = 0; i < strokes.length; i++) {
         var x = strokes[i][0], y = strokes[i][1];
         this.makeStroke(x, y, this.referenceImage.data[x][y], brush)
