@@ -9,3 +9,19 @@ function ImageClass(w, h) {
         }
     }
 }
+
+ImageClass.diffImages = function(x, y) {
+    var diff = new ImageClass(x.width, x.height);
+    for (var w = 0; w < x.width; w++) {
+        for (var h = 0; h < x.height; h++) {
+            var rdiff = x.data[w][h][0] - y.data[w][h][0];
+            var gdiff = x.data[w][h][1] - y.data[w][h][1];
+            var bdiff = x.data[w][h][2] - y.data[w][h][2];
+            var d = rdiff * rdiff + gdiff * gdiff + bdiff * bdiff;
+            diff.data[w][h][0] = d;
+            diff.data[w][h][1] = d;
+            diff.data[w][h][2] = d;
+        }
+    }
+    return diff;
+}

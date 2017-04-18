@@ -18,7 +18,6 @@ function draw() {
     var h = context.canvas.height;
     var imagedata = context.getImageData(0, 0, w, h);
     var inputImage = new ImageClass(w, h);
-    var outputImage = new ImageClass(w, h);
     for(x = 0; x < w; x++) {
         for(y = 0; y < h; y++) {
             var color = getPixel(imagedata, x, y);
@@ -29,7 +28,7 @@ function draw() {
     }
     
     var painter = new Painter();
-    painter.paint(inputImage, outputImage);
+    var outputImage = painter.paint(inputImage);
 
     for(x = 0; x < w; x++) {
         for(y = 0; y < h; y++) {
