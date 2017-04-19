@@ -11,6 +11,8 @@ SobelFilter.prototype.applyFilter = function(input, output) {
             input.data[i][j].luminance = 0.3 * input.data[i][j][0] + 0.59 * input.data[i][j][1] + 0.11 * input.data[i][j][2];
             output.data[i][j].mag = 0;
             output.data[i][j].theta = 0;
+            output.data[i][j].gx = 0;
+            output.data[i][j].gy = 1;
         }
     }
     for (var i = kby2; i < (input.width - kby2); i++) {
@@ -28,6 +30,8 @@ SobelFilter.prototype.applyFilter = function(input, output) {
             output.data[i][j][0] = z;
             output.data[i][j][1] = z;
             output.data[i][j][2] = z;
+            output.data[i][j].gx = sumX;
+            output.data[i][j].gy = sumY;
             output.data[i][j].mag = z;
             output.data[i][j].theta = theta;
         }
