@@ -9,8 +9,6 @@ function Brush() {}
 Brush.roundBrush = function(size) {
     var b = new Brush();
     b.size = size;
-    b.minStrokeLength = 4;
-    b.maxStrokeLength = 12;
     b.x_stroke = [];
     b.y_stroke = [];
     var r = Math.floor(size / 2);

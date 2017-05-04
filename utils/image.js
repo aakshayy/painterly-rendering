@@ -25,3 +25,15 @@ ImageClass.diffImages = function(x, y) {
     }
     return diff;
 }
+
+ImageClass.copyImage = function(x) {
+    var y = new ImageClass(x.width, x.height);
+    for (var w = 0; w < x.width; w++) {
+        for (var h = 0; h < x.height; h++) {
+            y.data[w][h][0] = x.data[w][h][0];
+            y.data[w][h][1] = x.data[w][h][1];
+            y.data[w][h][2] = x.data[w][h][2];
+        }
+    }
+    return y;
+}

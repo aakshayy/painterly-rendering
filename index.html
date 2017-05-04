@@ -3,15 +3,103 @@
     <head>
         <meta charset="UTF-8">
         <title> Painterly Rendering </title>
+        <link href="utils/ui/jquery-ui.css" rel="stylesheet">
+        <style>
+            fieldset {
+                position:relative;
+                float:left;
+                width:150px;
+                height: 100%;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+            .tab {
+                margin:10px;
+            }
+        </style>
+    </head>
+    <body onload="main();">
+        <fieldset>
+            <div class = "tab">
+                <h2>Painterly Rendering</h2>
+            </div>
+            <div class = "tab">
+                <label for="image1">Image 1 : </label>
+                <select name="image1" id="image1" onchange="changeImage();" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget">
+                    <option></option>
+                </select>
+            </div>
+            <div class = "tab">
+                <label for="image2">Image 2 : </label>
+                <select name="image2" id="image2" onchange="changeImage();" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget">
+                    <option></option>
+                </select>
+            </div>
+            <div class = "tab">
+                <label for="layers">Number of Layers: </label>
+                <div id="slider-layers">
+                    <div id="layers" name="layers" class="ui-slider-handle"></div>
+                </div>
+            </div>
+            <div id="controlBrush1" class = "tab">
+                <label for="brush1">Brush 1: </label>
+                <select id="brush1" name="brush1" value="16" onchange="changeBrushSize(1);">
+                    <option selected>16</option><option>8</option><option>4</option><option>2</option><option>1</option>
+                </select>
+            </div>
+            <div id="controlBrush2" class = "tab">
+                <label for="brush2">Brush 2: </label>
+                <select id="brush2" name="brush2" value="8" onchange="changeBrushSize(2);">
+                    <option>16</option><option selected>8</option><option>4</option><option>2</option><option>1</option>
+                </select>
+            </div>
+            <div id="controlBrush3" class = "tab">
+                <label for="brush3">Brush 3: </label>
+                <select id="brush3" name="brush3" value="4" onchange="changeBrushSize(3);">
+                    <option>16</option><option>8</option><option selected>4</option><option>2</option><option>1</option>
+                </select>
+            </div>
+            <div id="controlBrush4" class = "tab">
+                <label for="brush4">Brush 4: </label>
+                <select id="brush4" name="brush4" value="2" onchange="changeBrushSize(4);">
+                    <option>16</option><option>8</option><option>4</option><option selected>2</option><option>1</option>
+                </select>
+            </div>
+            <div id="controlBrush5" class = "tab">
+                <label for="brush5">Brush 5: </label>
+                <select id="brush5" name="brush5" value="1" onchange="changeBrushSize(5);">
+                    <option>16</option><option>8</option><option>4</option><option>2</option><option selected>1</option>
+                </select>
+            </div>
+            <div class = "tab">
+                <label for="threshold">Threshold: </label>
+                <div id="slider-threshold">
+                    <div id="threshold" name="threshold" class="ui-slider-handle"></div>
+                </div>
+            </div>
+            <div class = "tab">
+                <label for="strokeLength">Stroke Length: </label><label id="amount"></label>
+                <div id="strokeLength" name="strokeLength" ></div>
+            </div>
+            <div class = "tab">
+                <label for="alpha">Alpha: </label>
+                <div id="slider-alpha">
+                    <div id="alpha" name="alpha" class="ui-slider-handle"></div>
+                </div>
+            </div>
+            <div class = "tab">
+                <button class="ui-button ui-widget ui-corner-all" onclick="repaint();">Repaint</button>
+            </div>
+        </fieldset>
+        <canvas id = "canvas1" height="512" width="400" style="border: 1px solid #666"></canvas>
+        <canvas id = "canvas2" height="512" width="400" style="border: 1px solid #666"></canvas>
+        <script type="text/javascript" src="utils/ui/external/jquery/jquery.js"></script>
+        <script type="text/javascript" src="utils/ui/jquery-ui.js"></script>
+        <script type="text/javascript" src="utils/ui.js"></script>      
         <script type="text/javascript" src = "utils/sobelfilter.js"></script>
         <script type="text/javascript" src = "utils/gaussianfilter.js"></script>
         <script type="text/javascript" src = "utils/image.js"></script>
         <script type="text/javascript" src = "utils/brush.js"></script>
         <script type="text/javascript" src = "utils/painter.js"></script>
         <script type="text/javascript" src = "draw.js"></script>
-    </head>
-    <body onload="main();">
-        <canvas id = "painterlyRenderingCanvas"></canvas>
-        <img id = "sourceImage">
     </body>
 </html>

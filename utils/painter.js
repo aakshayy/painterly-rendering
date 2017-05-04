@@ -1,14 +1,20 @@
 function Painter() {
+}
+
+Painter.prototype.initializeBrushes = function() {
     this.brushes = new Array();
-    this.brushes.push(Brush.roundBrush(8));
-    this.brushes.push(Brush.roundBrush(4));
-    this.brushes.push(Brush.roundBrush(2));
+    for (var i = 0; i < this.numberOfLayers; i++) {
+        this.brushes.push(Brush.roundBrush(this.brushSizes[i]));
+    }
 }
 
 Painter.prototype.paint = function(inputImage) {
+    this.initializeBrushes();
+
     this.referenceImage = new ImageClass(inputImage.width, inputImage.height);
     this.gradientImage = new ImageClass(inputImage.width, inputImage.height);
     this.canvas = new ImageClass(inputImage.width, inputImage.height);
+    this.outputImage = new ImageClass(inputImage.width, inputImage.height);
 
     this.gaussianFilter = new GaussianFilter();
     this.sobelFilter = new SobelFilter();
@@ -16,10 +22,15 @@ Painter.prototype.paint = function(inputImage) {
     this.gaussianFilter.applyFilter(inputImage, this.referenceImage);
     this.sobelFilter.applyFilter(this.referenceImage, this.gradientImage);
 
+    this.layers = [];
     for(var i = 0; i < this.brushes.length; i++) {
         this.paintLayer(this.brushes[i]);
+        this.layers.push(ImageClass.copyImage(this.canvas));
     }
-    return this.canvas;
+
+    this.gaussianFilter.applyFilter(this.canvas, this.outputImage)
+
+    return this.outputImage;
 }
 
 Painter.prototype.paintLayer = function(brush) {
@@ -31,7 +42,6 @@ Painter.prototype.paintLayer = function(brush) {
             var maxError = 0;
             var maxX, maxY;
             var totalError = 0;
-            var threshold = 25;
             for (var x = w; x < w + gridSize; x++) {
                 for (var y = h; y < h + gridSize; y++) {
                     totalError += difference.data[x][y][0];
@@ -43,7 +53,7 @@ Painter.prototype.paintLayer = function(brush) {
                 }
             }
             totalError /= (gridSize * gridSize);
-            if (totalError > threshold) {
+            if (totalError > this.threshold) {
                 strokes.push([maxX, maxY]);
             }
         }
@@ -62,6 +72,9 @@ Painter.prototype.makeStroke = function(cx, cy, color, brush) {
         var y = brush.y_stroke[i] + cy;
         if (x < 0 || x >= this.canvas.width || y < 0 || y >= this.canvas.height)
             continue;
+        //this.canvas.data[x][y][0] = this.canvas.data[x][y][0] * (1 - this.alpha) + color[0] * this.alpha;
+        //this.canvas.data[x][y][1] = this.canvas.data[x][y][1] * (1 - this.alpha) + color[1] * this.alpha;
+        //this.canvas.data[x][y][2] = this.canvas.data[x][y][2] * (1 - this.alpha) + color[2] * this.alpha;
         this.canvas.data[x][y][0] = color[0];
         this.canvas.data[x][y][1] = color[1];
         this.canvas.data[x][y][2] = color[2];
@@ -79,12 +92,12 @@ Painter.prototype.makeSplineStroke = function(cx, cy, color, brush) {
     var x = cx;
     var y = cy;
     var lastdx = 0, lastdy = 0;
-    for (var i = 1; i < brush.maxStrokeLength; i++) {
+    for (var i = 1; i < this.maxStrokeLength; i++) {
         this.makeStroke(x, y, color, brush);
 
         var diffCanvasReference = this.distanceSquareColor(this.canvas.data[x][y], this.referenceImage.data[x][y]);
         var diffBrushReference = this.distanceSquareColor(color, this.referenceImage.data[x][y]);
-        if (i > brush.minStrokeLength && diffBrushReference > diffCanvasReference) {
+        if (i > this.minStrokeLength && diffBrushReference > diffCanvasReference) {
             break;
         }
 
@@ -94,23 +107,27 @@ Painter.prototype.makeSplineStroke = function(cx, cy, color, brush) {
         var dx = -this.gradientImage.data[x][y].gy;
         var dy = this.gradientImage.data[x][y].gx;
 
-        var d = Math.sqrt(dx * dx + dy * dy);
-        dx /= d;
-        dy /= d;
         if (lastdx * dx + lastdy * dy < 0) {
-            dx = -dx;
-            dy = -dy;
+            //dx = -dx;
+            //dy = -dy;
         }
         
-        var fc = 1;
+        var fc = 0.25;
 
         dx = fc * dx + (1 - fc) * lastdx;
         dy = fc * dy + (1 - fc) * lastdy;
+
+        var d = Math.sqrt(dx * dx + dy * dy);
+        dx /= d;
+        dy /= d;
 
         x = Math.round(x + (brush.size / 2) * dx);
         y = Math.round(y + (brush.size / 2) * dy);
 
         if (x < 0 || x >= this.canvas.width || y < 0 || y >= this.canvas.height)
             break;
+        
+        lastdx = dx;
+        lastdy = dy;
     }
 }
