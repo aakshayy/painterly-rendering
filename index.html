@@ -21,6 +21,15 @@
         <fieldset>
             <div class = "tab">
                 <h2>Painterly Rendering</h2>
+            </div>            
+            <div class = "tab">
+                <label for="presets">Presets : </label>
+                <select name="presets" id="presets" onchange="loadPreset();" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget">
+                    <option>Oil Painting</option>
+                    <option>Point Painting</option>
+                    <option>Colorist Wash</option>
+                    <option>Color Pencil</option>
+                </select>
             </div>
             <div class = "tab">
                 <label for="image1">Image 1 : </label>
@@ -42,32 +51,32 @@
             </div>
             <div id="controlBrush1" class = "tab">
                 <label for="brush1">Brush 1: </label>
-                <select id="brush1" name="brush1" value="16" onchange="changeBrushSize(1);">
-                    <option selected>16</option><option>8</option><option>4</option><option>2</option><option>1</option>
+                <select id="brush1" name="brush1" value="32" onchange="changeBrushSize(1);">
+                    <option selected>32</option><option>16</option><option>8</option><option>4</option><option>2</option>
                 </select>
             </div>
             <div id="controlBrush2" class = "tab">
                 <label for="brush2">Brush 2: </label>
-                <select id="brush2" name="brush2" value="8" onchange="changeBrushSize(2);">
-                    <option>16</option><option selected>8</option><option>4</option><option>2</option><option>1</option>
+                <select id="brush2" name="brush2" value="16" onchange="changeBrushSize(2);">
+                    <option>32</option><option selected>16</option><option>8</option><option>4</option><option>2</option>
                 </select>
             </div>
             <div id="controlBrush3" class = "tab">
                 <label for="brush3">Brush 3: </label>
-                <select id="brush3" name="brush3" value="4" onchange="changeBrushSize(3);">
-                    <option>16</option><option>8</option><option selected>4</option><option>2</option><option>1</option>
+                <select id="brush3" name="brush3" value="8" onchange="changeBrushSize(3);">
+                    <option>32</option><option>16</option><option selected>8</option><option>4</option><option>2</option>
                 </select>
             </div>
             <div id="controlBrush4" class = "tab">
                 <label for="brush4">Brush 4: </label>
                 <select id="brush4" name="brush4" value="2" onchange="changeBrushSize(4);">
-                    <option>16</option><option>8</option><option>4</option><option selected>2</option><option>1</option>
+                    <option>32</option><option>16</option><option>8</option><option selected>4</option><option>2</option>
                 </select>
             </div>
             <div id="controlBrush5" class = "tab">
                 <label for="brush5">Brush 5: </label>
                 <select id="brush5" name="brush5" value="1" onchange="changeBrushSize(5);">
-                    <option>16</option><option>8</option><option>4</option><option>2</option><option selected>1</option>
+                    <option>32</option><option>16</option><option>8</option><option>4</option><option selected>2</option>
                 </select>
             </div>
             <div class = "tab">
@@ -99,6 +108,7 @@
         <script type="text/javascript" src = "utils/gaussianfilter.js"></script>
         <script type="text/javascript" src = "utils/image.js"></script>
         <script type="text/javascript" src = "utils/brush.js"></script>
+        <script type="text/javascript" src = "utils/presets.js"></script>
         <script type="text/javascript" src = "utils/painter.js"></script>
         <script type="text/javascript" src = "draw.js"></script>
     </body>

@@ -6,7 +6,7 @@ function Renderer(context1, context2) {
     this.currentPainter.numberOfLayers = document.getElementById("layers").innerText;
     this.currentPainter.threshold = document.getElementById("threshold").innerText;
     this.currentPainter.alpha = document.getElementById("alpha").innerText;
-    this.currentPainter.brushSizes = [16, 8, 4, 2, 1];
+    this.currentPainter.brushSizes = [32, 16, 8, 4, 2];
     this.currentPainter.minStrokeLength = parseInt(document.getElementById("amount").innerText.split(" ")[0]);
     this.currentPainter.maxStrokeLength = parseInt(document.getElementById("amount").innerText.split(" ")[2]);
 }
@@ -116,6 +116,19 @@ function repaint() {
     renderer.render(renderer.context1, renderer.outputImage);
     renderer.updateMenu();
 }
+
+function loadPreset() {
+    var e = document.getElementById("presets");
+    var presetName = e.options[e.selectedIndex].value;
+    var presets = {}
+    presets["Oil Painting"] = Presets.OilPainting();
+    presets["Point Painting"] = Presets.PointPainting();
+    presets["Colorist Wash"] = Presets.ColoristWash();
+    presets["Color Pencil"] = Presets.ColorPencil();
+    renderer.currentPainter = presets[presetName];
+    repaint();
+}
+
 
 var renderer;
 

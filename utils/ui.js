@@ -6,7 +6,7 @@ $(function() {
         },
         max: 5,
         min: 1,
-        value: 3,
+        value: 4,
         slide: function(event, ui) {
             handle.text(ui.value);
             for (var i = 1; i <= ui.value; i++) {
@@ -18,7 +18,7 @@ $(function() {
             changeNumberOfLayers(ui.value);
         }
     });
-    $("#controlBrush4").hide();$("#controlBrush5").hide();
+    $("#controlBrush5").hide();
 });
 $(function() {
     var handle = $("#alpha");
@@ -29,7 +29,7 @@ $(function() {
         max: 1.0,
         min: 0.0,
         step: 0.1,
-        value: 0.5,
+        value: 1.0,
         slide: function(event, ui) {
             handle.text(ui.value);
             changeAlpha(ui.value);

@@ -59,7 +59,6 @@ Painter.prototype.paintLayer = function(brush) {
         }
     }
     console.log("Stroke count: ", strokes.length);
-    //TODO: shuffle here before actually drawing strokes.
     for(var i = 0; i < strokes.length; i++) {
         var x = strokes[i][0], y = strokes[i][1];
         this.makeSplineStroke(x, y, this.referenceImage.data[x][y], brush)
