@@ -33,7 +33,7 @@ Extra Credit:
 
 ### Demo
 ---
-[Painterly rendering](http://rawgit.com/aakshayy/painterly-rendering/master/index.html)
+[Painterly rendering](https://aakshayy.github.io/painterly-rendering/)
 
 ### Screencast
 ---
