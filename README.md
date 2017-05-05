@@ -1,6 +1,7 @@
 # CSC 562 Project Part 1: Painterly Rendering 
 
 Author: Akshay Arlikatti
+
 Unity Id: aarlika
 ### Description
 ---
@@ -26,6 +27,7 @@ Open localhost:8000 in the browser.
 Basic:
 * Basic painterly effects 
 * Compare Oil Painting, Point Painting, Colorist Wash, Color Pencil.
+
 Extra Credit:
 * Added Custom style features.
 
